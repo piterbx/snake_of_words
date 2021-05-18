@@ -1,0 +1,12 @@
+{
+  "name": "snake_of_words",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+
+  },
+  "author": "",
+  "license": "ISC"
+}
