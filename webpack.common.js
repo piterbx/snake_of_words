@@ -1,12 +1,8 @@
 const path = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: "development",
     entry: './src/index.js',
-    output: {
-        filename: 'main.[contenthash].js',
-        path: path.resolve(__dirname, "dist")
-    },
     module: {
         rules: [
             {
@@ -14,5 +10,8 @@ module.exports = {
                 use: ["style-loader", "css-loader", "sass-loader"]
             }
         ]
-    }
+    },
+    plugins: [new htmlWebpackPlugin({
+        template: './src/template.html'
+    })]
 };
