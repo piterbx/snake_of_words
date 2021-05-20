@@ -1,3 +1,4 @@
-import {startTest} from './app/main-core';
+import {main} from './app/main-core';
 import './scss/main.scss';
-startTest();
+
+document.addEventListener('DOMContentLoaded', main);
