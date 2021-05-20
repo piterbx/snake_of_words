@@ -2,6 +2,7 @@ let $mainInput;
 let $mainBtn;
 let $mainAlert;
 let $mainSnake;
+const $usedWords = ['sosna'];
 
 export const main = () => {
     prepareElements();
@@ -17,6 +18,14 @@ const prepareElements = () => {
 
 const prepareEvents = () => {
     $mainBtn.addEventListener('click', checkInput);
+    $mainInput.addEventListener('keyup', () => alertService('clear'));
+    $mainInput.addEventListener('keyup', checkKey);
+};
+
+const checkKey = e => {
+    if(e.code==='Enter'){
+        checkInput();
+    }
 };
 
 const alertService = evn => {
@@ -27,28 +36,32 @@ const alertService = evn => {
         case 'clear':
             $mainAlert.innerText = '';
             break;
+        case 'found':
+            $mainAlert.innerText = 'Użyłeś/aś już tego słowa 😃';
+            break;
         default:
             $mainAlert.innerText = 'Nieznany błąd 😿';
     }
 };
 
-const checkIfRepeat = word => {
-    console.log(word); //temporarily ;)
-};
+const checkIfRepeat = word => $usedWords.find(el => el===word);
 
 const checkWord = () => {
-    if(checkIfRepeat($mainInput.value)){
-        console.log('nie znalezioo');
-        $mainInput.value = '';
+    const currentWord = $mainInput.value.toLowerCase();
+    if(checkIfRepeat(currentWord)){
+        alertService('found');
     } else {
-        
+        $usedWords.push(currentWord);
+        clearInput();
     }
 };
+
+const clearInput = () => $mainInput.value = '';
 
 const checkInput = () => {
     if($mainInput.value!=='') {
         checkWord();
-        alertService('clear');
+        clearInput();
     } else {
         alertService(1);
     };
