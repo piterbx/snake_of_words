@@ -7,6 +7,31 @@
     <title>Wąż ze słów</title>
 </head>
 <body>
-    <h1>Test</h1>
+    <header class="header"><h1>Wąż ze słów</h1></header>
+    <main>
+        <section class="input-area">
+            <div class="wrapper">
+                <h2 class="input-area__title">Dodaj swoje słowo</h2>
+                <input type="text" class="input-area__input special" placeholder="Wpisz tekst">
+                <button class="input-area__btn special btn">Dodaj</button>
+                <p class="input-area__alert"></p>
+            </div>
+        </section>
+        <section id="results" class="results">
+            <div class="wrapper">
+                <h2 class="results__heading">Wąż</h2>
+                <p class="results__snake"></p>
+            </div>
+        </section>
+        <section id="instructions" class="instructions">
+            <div class="wrapper">
+                <h2 class="instructions__heading">Instrukcje</h2>
+                <h5 class="instructions__title">Jak grać?</h5>
+                <p>Wpisz słowo które zaczyna się na ostatnią literą poprzedniego wyrazu.</p>
+                <p>Słowa nie mogą się powtarzać.</p>
+                <p>Nie oszukuj😄 <button class="special btn egg">ok?</button></p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
