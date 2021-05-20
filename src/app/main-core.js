@@ -2,7 +2,9 @@ let $mainInput;
 let $mainBtn;
 let $mainAlert;
 let $mainSnake;
-const $usedWords = ['sosna'];
+
+const $usedWords = [];
+const $regToMatch = /[a-zA-Z]/g;
 
 export const main = () => {
     prepareElements();
@@ -30,7 +32,7 @@ const checkKey = e => {
 
 const alertService = evn => {
     switch(evn){
-        case 1:
+        case 'empty':
             $mainAlert.innerText = 'Podaj jakieś słowo 😊';
             break;
         case 'clear':
@@ -38,6 +40,9 @@ const alertService = evn => {
             break;
         case 'found':
             $mainAlert.innerText = 'Użyłeś/aś już tego słowa 😃';
+            break;
+            case 'invalid':    
+            $mainAlert.innerText = 'Słowo nie może zawierać spacji, numerów ani znaków specjalnych 😉';
             break;
         default:
             $mainAlert.innerText = 'Nieznany błąd 😿';
@@ -48,11 +53,18 @@ const checkIfRepeat = word => $usedWords.find(el => el===word);
 
 const checkWord = () => {
     const currentWord = $mainInput.value.toLowerCase();
+
     if(checkIfRepeat(currentWord)){
         alertService('found');
     } else {
         $usedWords.push(currentWord);
         clearInput();
+
+        if(currentWord.match($regToMatch)){
+            console.log(true);
+        } else {
+            alertService('invalid');
+        };
     }
 };
 
@@ -63,6 +75,6 @@ const checkInput = () => {
         checkWord();
         clearInput();
     } else {
-        alertService(1);
+        alertService('empty');
     };
 };
