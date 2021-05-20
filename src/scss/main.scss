@@ -1,5 +1,167 @@
-$c: black;
+@use "colors"as c;
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*::selection {
+    background-color: c.$blue;
+    color: c.$light;
+}
+
+*:focus {
+    outline: 0;
+    border-color: c.$blue !important;
+}
+
+:root {
+    font-size: 1.6rem;
+    scroll-behavior: smooth;
+}
 
 body {
-    background-color: $c;
+    font-family: 'Commissioner', sans-serif;
+    background-color: c.$dark;
+    color: c.$light;
+}
+
+.wrapper {
+    width: 80%;
+    max-width: 1920px;
+    margin: 1.5rem auto;
+    padding: .4rem;
+    text-align: center;
+}
+
+.btn {
+    position: relative;
+    cursor: pointer;
+    margin-left: 5px;
+    overflow: hidden;
+    z-index: 0;
+
+    &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: -80px;
+        width: 50px;
+        height: 150%;
+        background-image: linear-gradient(-90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+        transition: transform .45s ease;
+        z-index: -1;
+    }
+
+    &:hover::before {
+        transform: translateX(650%);
+    }
+}
+
+.special {
+    width: 100%;
+    max-width: 250px;
+    margin: 1em 0 0 0;
+    padding: .7em 1.2em;
+    border: 2px solid c.$orange;
+    border-radius: 5px;
+    font-size: .6rem;
+    background: none;
+    color: c.$light;
+    text-transform: uppercase;
+}
+
+.header h1 {
+    width: 100%;
+    margin: 2rem auto 0 auto;
+    text-align: center;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+
+    &::before {
+        content: '';
+        height: 100%;
+        border-left: .3rem solid c.$orange;
+        padding-right: .4rem;
+    }
+}
+
+.input-area {
+    margin: 1rem 0;
+
+    &__title {
+        font-size: 1.1rem;
+        padding-bottom: .5rem;
+    }
+}
+
+.results {
+    margin: 1em 0;
+
+    &__heading {
+        font-size: 1.3rem;
+        margin-bottom: .5em;
+    }
+
+    &__snake {
+        text-transform: uppercase;
+        word-break: break-all;
+        letter-spacing: 2px;
+
+        span {
+            color: c.$orange;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.instructions {
+    &__heading {
+        margin-bottom: .5em;
+    }
+
+    &__title {
+        font-size: 1.1rem;
+        margin: 0.2em 0;
+    }
+
+    p {
+        line-height: 2rem;
+    }
+
+    .btn {
+        margin: .5em 0;
+        border-color: c.$light;
+        max-width: 100px;
+
+        &:hover {
+            border-color: c.$blue;
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .input-area {
+        &__title {
+            font-size: 1.7rem;
+        }
+
+        .special {
+            font-size: .7rem;
+        }
+    }
+
+    .results {
+        &__heading {
+            font-size: 1.7rem;
+        }
+    }
 }
