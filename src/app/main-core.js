@@ -5,6 +5,7 @@ let $mainSnake;
 
 const $usedWords = [];
 const $regToMatch = /[a-zA-Z]/g;
+let $snake;
 
 export const main = () => {
     prepareElements();
@@ -41,12 +42,36 @@ const alertService = evn => {
         case 'found':
             $mainAlert.innerText = 'Użyłeś/aś już tego słowa 😃';
             break;
-            case 'invalid':    
+        case 'invalid':    
             $mainAlert.innerText = 'Słowo nie może zawierać spacji, numerów ani znaków specjalnych 😉';
+            break;
+        case 'notmatch':
+            $mainAlert.innerText = 'Wymyśl inne słowo 😉';
+            break;
+        case 'tiny':
+            $mainAlert.innerText = 'Za krótkie słowo 🙂';    
             break;
         default:
             $mainAlert.innerText = 'Nieznany błąd 😿';
     }
+};
+
+const extendSnake = word => {
+    $snake = $mainSnake.innerText.toLowerCase();
+    let firstLetter = word.substring(0, 1)
+    let lastLetter = $snake.substring($snake.length - 1);
+
+    if(firstLetter===lastLetter){
+        if(word.length>=2){
+            $usedWords.push(word);
+            console.log($usedWords);
+            $mainSnake.innerHTML += word.substring(1, word.length-1) + `<span>${word.substring(word.length-1)}</span>`;
+        } else {
+            alertService('tiny');
+        };
+    } else {
+        alertService('notmatch');
+    };
 };
 
 const checkIfRepeat = word => $usedWords.find(el => el===word);
@@ -57,11 +82,10 @@ const checkWord = () => {
     if(checkIfRepeat(currentWord)){
         alertService('found');
     } else {
-        $usedWords.push(currentWord);
         clearInput();
 
-        if(currentWord.match($regToMatch)){
-            console.log(true);
+        if(currentWord.match($regToMatch) && currentWord.includes(' ')===false){
+            extendSnake(currentWord);
         } else {
             alertService('invalid');
         };
