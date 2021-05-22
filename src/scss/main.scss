@@ -117,11 +117,12 @@ body {
         text-transform: uppercase;
         word-break: break-all;
         letter-spacing: 2px;
+        font-size: 0.8rem;
 
         span {
             color: c.$orange;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
         }
     }
 }
@@ -169,6 +170,14 @@ body {
     .results {
         &__heading {
             font-size: 1.7rem;
+        }
+
+        &__snake {
+            font-size: 1rem;
+
+            span {
+                font-size: 1.2rem;
+            }
         }
     }
 }
