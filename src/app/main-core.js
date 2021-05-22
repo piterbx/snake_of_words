@@ -4,6 +4,7 @@ let $mainAlert;
 let $mainSnake;
 
 const $usedWords = [];
+const $starterWords = ['ala', 'bonifacy', 'cymbał', 'drużba', 'ewa', 'francuz', 'grymas', 'hipopotam', 'irys', 'jacek', 'kiwi', 'limonka', 'minionek', 'nazwa', 'omlet', 'prostownica', 'rysy', 'zegarek'];
 const $regToMatch = /[a-zA-Z]/g;
 const $regToAvoid = /[0-9~@#$^*()_+=[{}|,.?: -*$)(?!.*<>'"/;`%\u005D\u005C]/gu;
 let $snake;
@@ -11,6 +12,7 @@ let $snake;
 export const main = () => {
     prepareElements();
     prepareEvents();
+    getRandomStarterWord();
 };
 
 const prepareElements = () => {
@@ -57,6 +59,15 @@ const alertService = evn => {
     }
 };
 
+const getRandomStarterWord = () => {
+    const min = 0;
+    const max = $starterWords.length-1;
+    const randomWord = $starterWords[Math.floor(Math.random()*(max-min+1) + min)];
+
+    $mainSnake.innerHTML = `<span>${randomWord.substring(0,1)}</span>${randomWord.substring(1,randomWord.length-1)}<span>${randomWord.substring(randomWord.length-1)}</span>`;
+    $usedWords.push(randomWord);
+};
+
 const extendSnake = word => {
     $snake = $mainSnake.innerText.toLowerCase();
     let firstLetter = word.substring(0, 1)
@@ -65,7 +76,6 @@ const extendSnake = word => {
     if(firstLetter===lastLetter){
         if(word.length>=2){
             $usedWords.push(word);
-            console.log($usedWords);
             $mainSnake.innerHTML += word.substring(1, word.length-1) + `<span>${word.substring(word.length-1)}</span>`;
         } else {
             alertService('tiny');
