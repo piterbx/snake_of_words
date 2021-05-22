@@ -152,6 +152,24 @@ body {
     }
 }
 
+.box-msg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 2rem;
+    overflow: hidden;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.68);
+    font-size: 1rem;
+    z-index: 10;
+}
+
 @media (min-width: 576px) {
     .header h1 {
         font-size: 2rem;
@@ -179,5 +197,9 @@ body {
                 font-size: 1.2rem;
             }
         }
+    }
+
+    .box-msg {
+        font-size: 1.4rem;
     }
 }

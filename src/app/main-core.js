@@ -2,6 +2,7 @@ let $mainInput;
 let $mainBtn;
 let $mainAlert;
 let $mainSnake;
+let $cheatBtn;
 
 const $usedWords = [];
 const $starterWords = ['ala', 'bonifacy', 'cymbał', 'drużba', 'ewa', 'francuz', 'grymas', 'hipopotam', 'irys', 'jacek', 'kiwi', 'limonka', 'minionek', 'nazwa', 'omlet', 'prostownica', 'rysy', 'zegarek'];
@@ -20,12 +21,14 @@ const prepareElements = () => {
     $mainBtn = document.querySelector('.input-area__btn');
     $mainAlert = document.querySelector('.input-area__alert');
     $mainSnake = document.querySelector('.results__snake');
+    $cheatBtn = document.querySelector('.btn.egg');
 };
 
 const prepareEvents = () => {
     $mainBtn.addEventListener('click', checkInput);
     $mainInput.addEventListener('keyup', () => alertService('clear'));
     $mainInput.addEventListener('keyup', checkKey);
+    $cheatBtn.addEventListener('click', openMsg);
 };
 
 const checkKey = e => {
@@ -112,4 +115,13 @@ const checkInput = () => {
     } else {
         alertService('empty');
     };
+};
+
+const openMsg = () => {
+    const msg = document.createElement('div');
+    msg.innerHTML = '<p>Mam nadzieję, że nie będziesz oszukiwał 😄😉</p>';
+    msg.classList.add('box-msg');
+    document.body.appendChild(msg);
+
+    setTimeout(() => msg.remove(), 3500);
 };
