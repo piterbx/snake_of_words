@@ -5,6 +5,7 @@ let $mainSnake;
 
 const $usedWords = [];
 const $regToMatch = /[a-zA-Z]/g;
+const $regToAvoid = /[0-9~@#$^*()_+=[{}|,.?: -*$)(?!.*<>'"/;`%\u005D\u005C]/gu;
 let $snake;
 
 export const main = () => {
@@ -84,7 +85,7 @@ const checkWord = () => {
     } else {
         clearInput();
 
-        if(currentWord.match($regToMatch) && currentWord.includes(' ')===false){
+        if(currentWord.match($regToMatch) && currentWord.includes(' ')===false && !currentWord.match($regToAvoid)){
             extendSnake(currentWord);
         } else {
             alertService('invalid');
