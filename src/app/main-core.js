@@ -55,6 +55,7 @@ const count = () => {
 };
 
 const startGame = time => {
+    $mainInput.value = '';
     $time = time;
     $infoScreen.classList.add('hidden');
     $counter = setInterval(count, 1000);
@@ -76,8 +77,10 @@ const infoScreenService = choice => {
         case 'start':
             $infoScreen.innerHTML = `
             <h3>Wybierz czas, aby rozpocząć grę:</h3>
-            <button class="popup__btn special btn popup__btn--30">30sek</button>
-            <button class="popup__btn special btn popup__btn--60">60sek</button>
+            <div>
+                <button class="popup__btn special btn popup__btn--30">30sek</button>
+                <button class="popup__btn special btn popup__btn--60">60sek</button>
+            </div>
             `;
             const timerBtn30 = document.querySelector('.popup__btn--30');
             const timerBtn60 = document.querySelector('.popup__btn--60');
@@ -91,6 +94,7 @@ const infoScreenService = choice => {
             <button class="popup__btn special btn reload">Ponów grę</button>
             `;
             const timerBtnReload = document.querySelector('.btn.reload');
+            timerBtnReload.focus();
             timerBtnReload.addEventListener('click', ()=> window.location.reload());
             break;
         default:
@@ -182,7 +186,13 @@ const checkInput = () => {
 
 const openMsg = () => {
     const msg = document.createElement('div');
+    const closeBtn = document.createElement('button');
+    closeBtn.innerText = 'zamknij';
+    closeBtn.className = 'special btn close';
+    closeBtn.addEventListener('click', () => msg.remove());
+
     msg.innerHTML = '<p>Mam nadzieję, że nie będziesz oszukiwał 😄😉</p>';
+    msg.appendChild(closeBtn);
     msg.classList.add('box-msg');
     document.body.appendChild(msg);
 
