@@ -2,10 +2,16 @@ let $mainInput;
 let $mainBtn;
 let $mainAlert;
 let $mainSnake;
+let $infoScreen;
 let $cheatBtn;
 let $resultLengthBox;
 let $resultAmontOfWordsBox;
 let $resultTheLongestWord;
+let $timerBtn30;
+let $timerBtn60;
+let $timerEl;
+let $time;
+let $counter;
 
 const $usedWords = [];
 const $starterWords = ['ala', 'bonifacy', 'cymbał', 'drużba', 'ewa', 'francuz', 'grymas', 'hipopotam', 'irys', 'jacek', 'kiwi', 'limonka', 'minionek', 'nazwa', 'omlet', 'prostownica', 'rysy', 'zegarek'];
@@ -24,10 +30,14 @@ const prepareElements = () => {
     $mainBtn = document.querySelector('.input-area__btn');
     $mainAlert = document.querySelector('.input-area__alert');
     $mainSnake = document.querySelector('.results__snake');
+    $infoScreen = document.querySelector('.popup.info-screen');
     $cheatBtn = document.querySelector('.btn.egg');
     $resultLengthBox = document.querySelector('.results__length');
     $resultAmontOfWordsBox = document.querySelector('.results__words');
     $resultTheLongestWord = document.querySelector('.results__the-longest-word');
+    $timerEl = document.querySelector('.timer__box');
+    $timerBtn30 = document.querySelector('.popup__btn--30');
+    $timerBtn60 = document.querySelector('.popup__btn--60');
 };
 
 const prepareEvents = () => {
@@ -35,6 +45,27 @@ const prepareEvents = () => {
     $mainInput.addEventListener('keyup', () => alertService('clear'));
     $mainInput.addEventListener('keyup', checkKey);
     $cheatBtn.addEventListener('click', openMsg);
+    $timerBtn30.addEventListener('click', () => startGame(30))
+    $timerBtn60.addEventListener('click', () => startGame(60))
+};
+
+const count = () => {
+    $timerEl.innerText = $time;
+    console.log($time);
+    $time--;
+    if($time<0){
+        clearInterval($counter);
+    }
+};
+
+const startGame = time => {
+    $time = time;
+    $infoScreen.classList.add('hidden');
+    $counter = setInterval(count, 1000);
+};
+
+const endGame = () => {
+    $infoScreen.classList.remove('hidden');
 };
 
 const checkKey = e => {
