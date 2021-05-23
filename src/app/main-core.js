@@ -3,6 +3,9 @@ let $mainBtn;
 let $mainAlert;
 let $mainSnake;
 let $cheatBtn;
+let $resultLengthBox;
+let $resultAmontOfWordsBox;
+let $resultTheLongestWord;
 
 const $usedWords = [];
 const $starterWords = ['ala', 'bonifacy', 'cymbał', 'drużba', 'ewa', 'francuz', 'grymas', 'hipopotam', 'irys', 'jacek', 'kiwi', 'limonka', 'minionek', 'nazwa', 'omlet', 'prostownica', 'rysy', 'zegarek'];
@@ -22,6 +25,9 @@ const prepareElements = () => {
     $mainAlert = document.querySelector('.input-area__alert');
     $mainSnake = document.querySelector('.results__snake');
     $cheatBtn = document.querySelector('.btn.egg');
+    $resultLengthBox = document.querySelector('.results__length');
+    $resultAmontOfWordsBox = document.querySelector('.results__words');
+    $resultTheLongestWord = document.querySelector('.results__the-longest-word');
 };
 
 const prepareEvents = () => {
@@ -69,6 +75,7 @@ const getRandomStarterWord = () => {
 
     $mainSnake.innerHTML = `<span>${randomWord.substring(0,1)}</span>${randomWord.substring(1,randomWord.length-1)}<span>${randomWord.substring(randomWord.length-1)}</span>`;
     $usedWords.push(randomWord);
+    updateStats();
 };
 
 const extendSnake = word => {
@@ -80,6 +87,7 @@ const extendSnake = word => {
         if(word.length>=2){
             $usedWords.push(word);
             $mainSnake.innerHTML += word.substring(1, word.length-1) + `<span>${word.substring(word.length-1)}</span>`;
+            updateStats();
         } else {
             alertService('tiny');
         };
@@ -123,5 +131,12 @@ const openMsg = () => {
     msg.classList.add('box-msg');
     document.body.appendChild(msg);
 
-    setTimeout(() => msg.remove(), 3500);
+    setTimeout(() => msg.remove(), 3000);
+};
+
+const updateStats = () => {
+    $resultLengthBox.innerText = $mainSnake.innerText.split('').length;
+    $resultAmontOfWordsBox.innerText = $usedWords.length;
+    const sortedWordsArr = $usedWords.sort((a,b) => a.length - b.length);
+    $resultTheLongestWord.innerText = sortedWordsArr[sortedWordsArr.length-1];
 };
