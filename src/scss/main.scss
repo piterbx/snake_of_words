@@ -217,6 +217,14 @@ body {
     background-color: rgba(0, 0, 0, 0.68);
     font-size: 1rem;
     z-index: 10;
+
+    .btn.close {
+        position: absolute;
+        max-width: 120px;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 .timer {
@@ -277,6 +285,10 @@ body {
 
     .box-msg {
         font-size: 1.4rem;
+
+        .btn.close {
+            bottom: 4rem;
+        }
     }
 
     .timer {
