@@ -107,6 +107,15 @@ body {
 
 .results {
     margin: 1em 0;
+    line-height: 1.7rem;
+
+    p {
+        font-size: 0.8rem;
+
+        span {
+            font-weight: bold;
+        }
+    }
 
     &__heading {
         font-size: 1.3rem;
@@ -117,11 +126,9 @@ body {
         text-transform: uppercase;
         word-break: break-all;
         letter-spacing: 2px;
-        font-size: 0.8rem;
 
         span {
             color: c.$orange;
-            font-weight: bold;
             font-size: 0.9rem;
         }
     }
@@ -190,9 +197,11 @@ body {
             font-size: 1.7rem;
         }
 
-        &__snake {
+        p {
             font-size: 1rem;
+        }
 
+        &__snake {
             span {
                 font-size: 1.2rem;
             }
