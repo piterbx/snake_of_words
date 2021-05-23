@@ -7,8 +7,6 @@ let $cheatBtn;
 let $resultLengthBox;
 let $resultAmontOfWordsBox;
 let $resultTheLongestWord;
-let $timerBtn30;
-let $timerBtn60;
 let $timerEl;
 let $time;
 let $counter;
@@ -23,6 +21,7 @@ export const main = () => {
     prepareElements();
     prepareEvents();
     getRandomStarterWord();
+    infoScreenService('start');
 };
 
 const prepareElements = () => {
@@ -36,8 +35,6 @@ const prepareElements = () => {
     $resultAmontOfWordsBox = document.querySelector('.results__words');
     $resultTheLongestWord = document.querySelector('.results__the-longest-word');
     $timerEl = document.querySelector('.timer__box');
-    $timerBtn30 = document.querySelector('.popup__btn--30');
-    $timerBtn60 = document.querySelector('.popup__btn--60');
 };
 
 const prepareEvents = () => {
@@ -45,8 +42,6 @@ const prepareEvents = () => {
     $mainInput.addEventListener('keyup', () => alertService('clear'));
     $mainInput.addEventListener('keyup', checkKey);
     $cheatBtn.addEventListener('click', openMsg);
-    $timerBtn30.addEventListener('click', () => startGame(30))
-    $timerBtn60.addEventListener('click', () => startGame(60))
 };
 
 const count = () => {
@@ -55,6 +50,7 @@ const count = () => {
     $time--;
     if($time<0){
         clearInterval($counter);
+        endGame();
     }
 };
 
@@ -66,12 +62,40 @@ const startGame = time => {
 
 const endGame = () => {
     $infoScreen.classList.remove('hidden');
+    infoScreenService('end');
 };
 
 const checkKey = e => {
     if(e.code==='Enter'){
         checkInput();
     }
+};
+
+const infoScreenService = choice => {
+    switch(choice){
+        case 'start':
+            $infoScreen.innerHTML = `
+            <h3>Wybierz czas, aby rozpocząć grę:</h3>
+            <button class="popup__btn special btn popup__btn--30">30sek</button>
+            <button class="popup__btn special btn popup__btn--60">60sek</button>
+            `;
+            const timerBtn30 = document.querySelector('.popup__btn--30');
+            const timerBtn60 = document.querySelector('.popup__btn--60');
+            timerBtn30.addEventListener('click', () => startGame(30))
+            timerBtn60.addEventListener('click', () => startGame(60))
+            break;
+        case 'end':
+            $infoScreen.innerHTML = `
+            <h3>Czas minął 😄 Koniec gry</h3>
+            <p>Twój wynik: ${$resultLengthBox.innerText}</p>
+            <button class="popup__btn special btn reload">Ponów grę</button>
+            `;
+            const timerBtnReload = document.querySelector('.btn.reload');
+            timerBtnReload.addEventListener('click', ()=> window.location.reload());
+            break;
+        default:
+            console.error('infoScreenService function error');
+    };
 };
 
 const alertService = evn => {
