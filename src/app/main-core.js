@@ -45,8 +45,7 @@ const prepareEvents = () => {
 };
 
 const count = () => {
-    $timerEl.innerText = $time;
-    console.log($time);
+    $timerEl.innerText = $time + 's';
     $time--;
     if($time<0){
         clearInterval($counter);
